@@ -8,6 +8,8 @@ type TDragEvents = {
   onDragleave?: (event: DragEvent) => void
   onDragover?: (event: DragEvent) => void
   onDragstart?: (event: DragEvent) => void
+  //
+  onDrop?: (event: DragEvent) => void
 }
 
 const useDrag = (events: TDragEvents = {}) => {
@@ -20,11 +22,21 @@ const useDrag = (events: TDragEvents = {}) => {
     onDragexit = emptyFn,
     onDragleave = emptyFn,
     onDragover = emptyFn,
-    onDragstart = emptyFn
+    onDragstart = emptyFn,
+    onDrop = (e) => e.preventDefault()
   } = events
 
   return {
-    fns: { onDrag, onDragend, onDragenter, onDragexit, onDragleave, onDragover, onDragstart }
+    fns: {
+      onDrag,
+      onDragend,
+      onDragenter,
+      onDragexit,
+      onDragleave,
+      onDragover,
+      onDragstart,
+      onDrop
+    }
   }
 }
 
