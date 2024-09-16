@@ -53,7 +53,8 @@ const config: Config = {
         plugin(function ({ addComponents, theme }) {
             addComponents({
                 '.btn': {
-                    '@apply py-1 px-2 rounded-md cursor-pointer bg-primary-600 border border-primary-600 text-white-100 select-none': {},
+                    '@apply cursor-pointer bg-primary-600  text-white-100 select-none inline-flex justify-center items-center py-3 px-5 font-medium text-center rounded-lg':
+                        {},
                     fontSize: theme('fontSize.base'),
                     fontWeight: theme('fontWeight.normal'),
 
@@ -69,7 +70,7 @@ const config: Config = {
                         '@apply cursor-auto text-primary-400 bg-primary-100 border-primary-100': {}
                     },
                     '&-outline': {
-                        '@apply bg-white text-primary-500 bg-transparent': {},
+                        '@apply btn border border-primary-500 bg-white-500 text-primary-500 bg-transparent': {},
                         '&:hover': {
                             '@apply bg-transparent text-primary-600': {}
                         },

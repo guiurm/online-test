@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import InfoCard from '@/components/index/InfoCard.vue'
+import { cardsData } from '@/static/indexCardsData'
+
+cardsData
 </script>
 <template>
     <!--
@@ -58,56 +61,34 @@ import InfoCard from '@/components/index/InfoCard.vue'
         <navbar-component />
 
         <section class="max-w-7xl mx-auto">
-            <div class="py-24 px-4 flex flex-wrap justify-between relative">
+            <div class="py-24 px-4 flex flex-wrap justify-between relative text-center">
                 <div class="max-w-3xl mx-auto xl:mx-0">
-                    <h1 class="text-5xl font-sans font-bold leading-tight">Crea y comparte exámenes académicos de tipo test en un instante.</h1>
+                    <h1 class="mb-4 text-4xl font-semibold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">Crea tests online</h1>
                     <p class="mt-6 text-lg font-medium text-white-300 md:text-xl">
                         Diseña exámenes académicos de tipo test fácilmente. La web corrige automáticamente y otorga puntos. Comparte tus tests con un enlace y
                         desafía a tus amigos.
                     </p>
-                    <div class="btn mt-6 w-fit">Más información</div>
+                    <div class="flex mt-6">
+                        <a class="btn w-fit" href="#info">Más información</a>
+                        <router-link :to="{ name: 'exam.editor' }" class="ml-6 btn-outline w-fit">Crear test</router-link>
+                    </div>
                 </div>
                 <div class="mx-auto xl:mx-0 mt-6">
                     <img class="xl:max-w-[350px] max-w-[500px]" src="/img/undraw_setup_wizard_re_nday.svg" alt="Logo" />
                 </div>
             </div>
         </section>
-        <section class="max-w-7xl mx-auto">
-            <info-card>
-                <template #title>Facilidad de Uso y Importación de Exámenes</template>
-                Diseña exámenes de manera rápida y sencilla gracias a nuestra interfaz intuitiva. Además, puedes importar tus exámenes en formato JSON,
-                facilitando la transferencia de contenido.
-            </info-card>
-
-            <info-card reverse>
-                <template #title>Corrección Automática</template>
-                La plataforma se encarga de corregir los exámenes de forma automática, permitiéndote recibir resultados inmediatos. Obtén tus puntuaciones sin
-                complicaciones y ahorra tiempo.
-            </info-card>
-
-            <info-card>
-                <template #title>Personalización de Tests</template>
-                Adapta cada examen a tus necesidades específicas. Puedes personalizar el número de preguntas, el formato y las opciones correctas, asegurando
-                que cada test sea único y pertinente.
-            </info-card>
-
-            <info-card reverse>
-                <template #title>Compartir con Facilidad</template>
-                Comparte tus exámenes de manera sencilla a través de un enlace único. Invita a amigos y compañeros a participar y a poner a prueba sus
-                conocimientos de forma efectiva.
-            </info-card>
-
-            <info-card>
-                <template #title>Análisis de Resultados</template>
-                Obtén estadísticas detalladas sobre el rendimiento de los participantes. Analiza los resultados para identificar áreas de mejora y ajustar tus
-                tests según sea necesario.
-            </info-card>
-
-            <info-card reverse>
-                <template #title>Accesibilidad en Línea</template>
-
-                Accede a la plataforma desde cualquier dispositivo con conexión a Internet. Crea, realiza y corrige exámenes sin importar dónde te encuentres.
-            </info-card>
+        <section class="max-w-5xl mx-auto py-6" id="info">
+            <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">¿Qué es online-test?</h2>
+            <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">
+                En esta plataforma encontrarás todo lo necesario para crear tus test
+            </p>
+            <div class="flex flex-col items-center gap-10">
+                <info-card v-for="({ body, img, title, reverse }, index) in cardsData" :reverse="reverse" :img="img" :key="index">
+                    <template #title>{{ title }}</template>
+                    <template #default> {{ body }}</template>
+                </info-card>
+            </div>
         </section>
     </main>
 </template>
