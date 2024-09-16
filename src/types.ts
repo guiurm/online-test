@@ -4,3 +4,9 @@ export type TQuestion = {
     subtitle: string
     options: TQuestionOption[]
 }
+
+export type TExamQuestion = TQuestion & {
+    id: string
+    correctAnswer: boolean | null
+    answered: boolean
+}

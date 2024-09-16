@@ -58,6 +58,13 @@ onMounted(() => {
 </script>
 
 <template>
+    <div class="flex justify-end">
+        <span class="text-primary-500">
+            <span class="mr-1">{{ currentIndex + 1 }}</span>
+            /
+            <span class="ml-1">{{ items.length }}</span>
+        </span>
+    </div>
     <div class="flex justify-between items-center w-full mx-auto">
         <button @click="prev" class="bg-white p-2 rounded-full shadow-md">&lt;</button>
         <div class="flex flex-row w-full">
