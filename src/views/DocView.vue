@@ -1,0 +1,71 @@
+<script lang="ts" setup>
+import NavbarComponent from '@/components/NavbarComponent.vue'
+</script>
+<template>
+    <NavbarComponent />
+    <div class="bg-dark-100 p-6 sm:p-8">
+        <div class="max-w-3xl mx-auto bg-white-50 p-6 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-4 text-dark-900 text-center">Cómo Pedirme que Genere un JSON</h1>
+            <ol class="list-decimal list-inside mb-4">
+                <li class="text-dark-700">
+                    <strong>Define el Tema:</strong>
+                    <ul class="list-disc list-inside ml-6">
+                        <li>Piensa en el tema sobre el que quieres que se genere el JSON. Puede ser cualquier cosa, como historia, ciencia, deportes, etc.</li>
+                    </ul>
+                </li>
+                <li class="text-dark-700">
+                    <strong>Estructura del JSON:</strong>
+                    <ul class="list-disc list-inside ml-6">
+                        <li>Indica la estructura que deseas que tenga el JSON. Por ejemplo, si quieres que contenga preguntas, especifica:</li>
+                        <ul class="list-disc list-inside ml-6">
+                            <li>Título de la pregunta.</li>
+                            <li>Subtítulo (opcional).</li>
+                            <li>Opciones de respuesta (con texto y si son correctas o no).</li>
+                            <li>Razón (opcional) que explique la respuesta correcta.</li>
+                        </ul>
+                    </ul>
+                </li>
+                <li class="text-dark-700">
+                    <strong>Ejemplo de Solicitud:</strong>
+                    <p>Puedes usar un formato similar al siguiente para hacer tu solicitud:</p>
+                    <p class="bg-dark-200 p-4 rounded-lg text-dark-900">
+                        Genera un JSON que represente un array de objetos con la siguiente estructura: <br />
+                        - Cada objeto debe tener: <br />
+                        - title: un string que representa el título. <br />
+                        - subtitle: un string que representa el subtítulo. <br />
+                        - options: un array de objetos con: <br />
+                        - text: un string que representa el texto de la opción. <br />
+                        - correct: un booleano que indica si la opción es correcta. <br />
+                        - reason: un string opcional que explica el motivo de la respuesta. <br />
+                        Hazlo sobre el tema de [tu tema aquí], y asegúrate de incluir al menos 20 preguntas. <br />
+                    </p>
+                </li>
+                <li class="text-dark-700">
+                    <strong>Especifica el Número de Preguntas:</strong>
+                    <p>Indica cuántas preguntas deseas que incluya en el JSON. Por ejemplo, "al menos 20 preguntas".</p>
+                </li>
+                <li class="text-dark-700">
+                    <strong>Envía tu Solicitud:</strong>
+                    <p>Una vez que tengas todo claro, simplemente envíame tu solicitud siguiendo el formato que mencioné.</p>
+                </li>
+            </ol>
+
+            <h2 class="text-2xl font-semibold mt-6 mb-4 text-dark-900 text-center">Ejemplo de Solicitud Completa</h2>
+            <p class="bg-dark-200 p-4 rounded-lg text-dark-900">
+                Genera un JSON que represente un array de objetos con la siguiente estructura: <br />
+                - Cada objeto debe tener: <br />
+                - title: un string que representa el título de la pregunta. <br />
+                - subtitle: un string que representa el subtítulo de la pregunta. <br />
+                - options: un array de objetos que deben seguir la estructura donde cada objeto tiene: <br />
+                - text: un string que representa el texto de la opción. <br />
+                - correct: un booleano que indica si la opción es correcta o no. <br />
+                - reason: un string opcional que explica el motivo de la respuesta (puede ser nulo o no estar presente). <br />
+                Hazlo sobre el tema de "matemáticas", y asegúrate de incluir al menos 20 preguntas. <br />
+            </p>
+
+            <!--
+            <p class="mt-4 text-dark-700 text-center">¡Espero que esta guía te sea útil! Si tienes más preguntas o necesitas ayuda, no dudes en decírmelo.</p>
+            -->
+        </div>
+    </div>
+</template>

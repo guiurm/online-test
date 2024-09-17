@@ -12,6 +12,11 @@ const router = createRouter({
             path: '/exam/editor',
             name: 'exam.editor',
             component: () => import('../views/ExamEdit.vue')
+        },
+        {
+            path: '/doc/ia',
+            name: 'doc.ia',
+            component: () => import('../views/DocView.vue')
         }
     ]
 })
