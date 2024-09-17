@@ -7,22 +7,6 @@ const props = defineProps<{ reverse?: boolean; img: { src: string; alt: string }
 const src = computed(() => `/online-test${props.img.src}`) //import.meta.env.DEV === true ? props.img.src : `/online-test${props.img.src}`))
 </script>
 <template>
-    <!--
-    <article class="grid grid-cols-12 my-6 px-8 py-6 rounded-md bg-dark-950">
-        <div class="col-span-5" :class="{ 'order-2': reverse }">
-            <img class="object-cover w-72" :src="img.src" :alt="img.alt" />
-        </div>
-        <div class="col-span-7 flex flex-col" :class="{ 'order-1': reverse }">
-            <h2 class="text-3xl mb-8 mt-12 font-sans font-semibold leading-tight">
-                <slot name="title" />
-            </h2>
-            <p class="text-lg max-w-[60ch] font-medium text-white-300 md:text-xl">
-                <slot />
-            </p>
-        </div>
-    </article>
-    -->
-
     <a
         class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-2xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
     >
