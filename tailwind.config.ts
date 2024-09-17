@@ -53,7 +53,7 @@ const config: Config = {
         plugin(function ({ addComponents, theme }) {
             addComponents({
                 '.btn': {
-                    '@apply cursor-pointer bg-primary-600  text-white-100 select-none inline-flex justify-center items-center py-3 px-5 font-medium text-center rounded-lg':
+                    '@apply cursor-pointer bg-primary-500  text-primary-950 select-none inline-flex justify-center items-center py-3 px-5 font-medium text-center rounded-lg':
                         {},
                     fontSize: theme('fontSize.base'),
                     fontWeight: theme('fontWeight.normal'),
@@ -61,7 +61,7 @@ const config: Config = {
                     //color: '#fefefe',
 
                     '&:hover': {
-                        backgroundColor: theme('colors.primary.600')
+                        '@apply  bg-primary-600': {}
                     },
                     '&:active': {
                         backgroundColor: theme('colors.primary.700')
@@ -76,6 +76,13 @@ const config: Config = {
                         },
                         '&:active': {
                             '@apply text-primary-400': {}
+                        }
+                    },
+                    '&-disabled': {
+                        '@apply cursor-default bg-primary-100  text-primary-400': {},
+
+                        '&:hover': {
+                            '@apply cursor-default bg-primary-100  text-primary-400': {}
                         }
                     }
                 },
@@ -93,4 +100,3 @@ const config: Config = {
 }
 
 export default config
-

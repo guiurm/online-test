@@ -1,4 +1,4 @@
-import type { TExamQuestion, TQuestion } from '@/types'
+import type { TExamQuestion, TExamQuestionOption, TQuestion } from '@/types'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
@@ -14,42 +14,71 @@ export const useExamStore = defineStore('exam', () => {
     }
 
     const questions = computed(() => exam.value.questions)
+    const allAnswered = computed(() => exam.value.allAnswered)
+    const totalFailed = computed(() => exam.value.totalFailed)
+    const totalAnswered = computed(() => exam.value.totalAnswered)
 
-    return { questions, addQuestions, answerQuestion }
+    return { questions, addQuestions, answerQuestion, allAnswered, totalFailed, totalAnswered }
 })
 
 export default class Examn {
     private _questions: TExamQuestion[]
 
     constructor(questions: TQuestion[] = []) {
-        this._questions = questions.map((q) => ({ ...q, id: generarUUID(), correctAnswer: null, answered: false }) as TExamQuestion)
+        this._questions = [] // questions.map((q) => ({ ...q, id: generarUUID(), correctAnswer: null, answered: false, reason: q.reason ?? '' }) as TExamQuestion)
+        this.addQuestions(questions)
     }
 
     public addQuestions(questions: TQuestion[]) {
-        this._questions.push(...questions.map((q) => ({ ...q, id: generarUUID(), correctAnswer: null, answered: false }) as TExamQuestion))
+        this._questions.push(
+            ...questions.map(
+                (q) =>
+                    ({
+                        ...q,
+                        id: generarUUID(),
+                        correctAnswer: null,
+                        answered: false,
+                        reason: q.reason ?? 'No se ha definido una explicación para esta respuesta',
+                        options: q.options.map((o) => ({ ...o, selected: false }) as TExamQuestionOption) as TExamQuestionOption[]
+                    }) as TExamQuestion
+            )
+        )
+        console.log(this._questions)
+
         return this
     }
 
     public answerQuestion(questionUUID: string, optionIndex: number) {
         const question = this._questions.find((q) => q.id === questionUUID)
-        const option = !question ? null : question.options[optionIndex]
+        const option: TExamQuestionOption | null = !question ? null : question.options[optionIndex]
         if (option === null || !question) throw 'Option not found'
-
+        question.options.forEach((o) => ((o as TExamQuestionOption).selected = false))
         question.answered = true
         question.correctAnswer = option.correct
+        option.selected = true
         return this
     }
 
     public get totalAnswered(): number {
-        return this._questions.map((q) => q.answered).length
+        console.log(this._questions)
+
+        return this._questions.filter((q) => q.answered).length
     }
 
     public get totalFailed(): number {
-        return this._questions.map((q) => q.correctAnswer === false).length
+        return this._questions.filter((q) => q.correctAnswer === false).length
     }
 
     public get questions() {
         return this._questions
+    }
+
+    public get allAnswered() {
+        console.log(this.totalAnswered === this._questions.length)
+        console.log(this._questions.length)
+        console.log(this.totalAnswered)
+
+        return this.totalAnswered === this._questions.length
     }
 }
 

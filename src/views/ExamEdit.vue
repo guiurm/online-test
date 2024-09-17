@@ -6,6 +6,7 @@ import ExamCard from '@/components/exam/ExamCard.vue'
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import { useExamStore } from '@/stores/examStore'
 import type { TQuestion } from '@/types'
+import { ref } from 'vue'
 
 const exam = useExamStore()
 
@@ -27,21 +28,59 @@ const generateQuestions = (files: File[]) => {
     }
     reader.readAsText(files[0])
 }
+
+const showCorrection = ref(false)
+const correctTest = () => {
+    if (exam.allAnswered) showCorrection.value = true
+}
 </script>
 <template>
     <main class="w-full h-full">
         <navbar-component />
         <section class="max-w-5xl mx-auto py-6">
-            <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">Selecciona tu archivo JSON</h2>
-            <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">Suelta un archivo o haz click</p>
-            <drop-zone v-if="exam.questions.length === 0" @drop="generateQuestions" :multiple="false" :accept="['.txt', '.json']" />
+            <template v-if="exam.questions.length === 0">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">
+                    Selecciona tu archivo JSON
+                </h2>
+                <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">Suelta un archivo o haz click</p>
+                <drop-zone @drop="generateQuestions" :multiple="false" :accept="['.txt', '.json']" />
+            </template>
 
-            <template v-if="exam.questions.length !== 0">
+            <template v-else-if="!showCorrection">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">Rellena el cuestionario</h2>
+                <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">Tras completar el questionario haz click en corregir</p>
                 <CarrouselComponent>
                     <CarrouselCard v-for="c in exam.questions" :key="c.title">
                         <exam-card :question="c"></exam-card>
                     </CarrouselCard>
                 </CarrouselComponent>
+                <div class="my-4 px-2 flex justify-end">
+                    <div class="btn" @click="correctTest" :class="{ 'btn-disabled': !exam.allAnswered }">Corregir</div>
+                </div>
+            </template>
+            <template v-else>
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">Resultados de evaluacion</h2>
+                <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">
+                    El resultado total del test realizado es: {{ exam.totalAnswered - exam.totalFailed }} / {{ exam.totalAnswered }}
+                </p>
+                <div class="my-4 px-2 flex flex-col" v-for="(question, questionIndex) in exam.questions" :key="question.id">
+                    <h3 class="mb-1 font-semibold">{{ questionIndex + 1 }} {{ question.title }}</h3>
+                    <p class="text-white-300">{{ question.subtitle }}</p>
+                    <p class="text-white-300 italic mb-2">¿Por qué es la respuesta correcta?: "{{ question.reason }}"</p>
+
+                    <div
+                        class="px-2 flex ps-4 border border-gray-600 rounded cursor-pointer hover:bg-white-500/20 transition-colors"
+                        v-for="option in question.options"
+                        :key="option.text + question.id"
+                    >
+                        <!-- <span class="material-symbols-outlined mr-4 text-base"> radio_button_checked </span> -->
+                        <span class="material-symbols-outlined mr-4 text-base text-green-500" v-if="option.correct"> check_circle </span>
+                        <span class="material-symbols-outlined mr-4 text-base text-red-500" v-if="option.selected && !option.correct"> error </span>
+                        <span :class="{ 'text-white-300': !option.selected }">
+                            {{ option.text }}
+                        </span>
+                    </div>
+                </div>
             </template>
         </section>
     </main>
