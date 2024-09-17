@@ -47,13 +47,15 @@ const prev = () => {
 }
 
 provide(CARROUSEL_ACTIONS, ((data) => {
+    console.log(data.id)
+
     items.value.push(data)
 }) as TCarrouselProvideCard)
 
 onMounted(() => {
     if (items.value.length === 0 || items.value.length === 1) return
 
-    distpachListeners(0, 1, items.value.length - 1)
+    distpachListeners(0, items.value.length - 1, 1)
 })
 </script>
 
@@ -67,7 +69,7 @@ onMounted(() => {
     </div>
     <div class="flex justify-between items-center w-full mx-auto">
         <button @click="prev" class="bg-white p-2 rounded-full shadow-md">&lt;</button>
-        <div class="flex flex-row w-full">
+        <div class="flex flex-row w-full relative">
             <slot />
         </div>
         <button @click="next" class="bg-white p-2 rounded-full shadow-md">&gt;</button>
