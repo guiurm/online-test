@@ -23,7 +23,7 @@ cardsData
                     </div>
                 </div>
                 <div class="mx-auto xl:mx-0 mt-6">
-                    <img class="xl:max-w-[350px] sm:max-w-full max-w-[500px]" src="/img/undraw_setup_wizard_re_nday.svg" alt="Logo" />
+                    <img class="xl:max-w-[350px] xs:max-w-full md:max-w-[500px]" src="/img/undraw_setup_wizard_re_nday.svg" alt="Logo" />
                 </div>
             </div>
         </section>
