@@ -43,7 +43,6 @@ export default class Examn {
                     }) as TExamQuestion
             )
         )
-        console.log(this._questions)
 
         return this
     }
@@ -60,8 +59,6 @@ export default class Examn {
     }
 
     public get totalAnswered(): number {
-        console.log(this._questions)
-
         return this._questions.filter((q) => q.answered).length
     }
 
@@ -74,10 +71,6 @@ export default class Examn {
     }
 
     public get allAnswered() {
-        console.log(this.totalAnswered === this._questions.length)
-        console.log(this._questions.length)
-        console.log(this.totalAnswered)
-
         return this.totalAnswered === this._questions.length
     }
 }

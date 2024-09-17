@@ -1,58 +1,57 @@
 <script lang="ts" setup>
-import { inject, onUnmounted, ref } from 'vue'
+import { inject, onUnmounted, ref, watch, type Ref } from 'vue'
 import { CARROUSEL_ACTIONS, type TCarrouselCardInjection } from './carrouselConstants'
 import CarrouselSubscriber, { type TCarrouselCardPosition } from './CarrouselSubscriber'
 
-const addCard = inject(CARROUSEL_ACTIONS) as TCarrouselCardInjection
+const { addCard, setContainerHeight } = inject(CARROUSEL_ACTIONS) as TCarrouselCardInjection
 const subscriber = new CarrouselSubscriber()
 
 const name = ref('')
-subscriber.on((d) => {
-    // console.log(position.value, d)
+const root = ref() as Ref<HTMLDivElement>
+const id = parseInt(Date.now() * 0.01 * Math.random() + '').toString(16)
+const position = ref('hidden' as TCarrouselCardPosition)
 
+subscriber.on((newPosition) => {
     if (position.value === 'visible') {
-        if (d === 'left') {
+        if (newPosition === 'left') {
             name.value = 'rl' //ok
-            console.log('a')
         }
-        if (d === 'right') {
+        if (newPosition === 'right') {
             name.value = 'lr' //ok
-            console.log('b')
         }
-    } else if (d === 'visible') {
+    } else if (newPosition === 'visible') {
         if (position.value === 'left') {
-            console.log('c')
-
             name.value = 'lr'
         }
         if (position.value === 'right') {
             name.value = 'rl' //@TODO solucion 1 click izq lr
-            console.log('d')
         }
-    } else if (d === 'hidden') {
+    } else if (newPosition === 'hidden') {
         if (position.value === 'left') {
-            console.log('e')
-
             name.value = 'rl'
         }
         if (position.value === 'right') {
             name.value = 'rl'
-            console.log('f')
         }
     }
 
-    position.value = d
+    position.value = newPosition
 })
-const id = parseInt(Date.now() * 0.01 * Math.random() + '').toString(16)
 
-const position = ref('hidden' as TCarrouselCardPosition)
+watch(position, (v) => {
+    if (v === 'visible') {
+        setTimeout(() => {
+            setContainerHeight(root.value.clientHeight)
+        }, 0)
+    }
+})
 
 addCard({ id, subscriber })
 onUnmounted(() => subscriber.clear())
 </script>
 <template>
     <transition :name="name">
-        <div v-show="position === 'visible'" class="w-full flex-shrink-0 absolute">
+        <div ref="root" v-show="position === 'visible'" class="w-full flex-shrink-0 absolute">
             <slot />
         </div>
     </transition>

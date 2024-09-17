@@ -12,19 +12,16 @@ import { ref } from 'vue'
 const exam = useExamStore()
 
 const generateQuestions = (files: File[]) => {
-    console.log(files[0])
     const reader = new FileReader()
     reader.onload = (evt) => {
         const s = evt.target?.result
         if (!s) {
-            console.log(s, evt)
             throw new Error('No text found')
         }
         try {
             exam.addQuestions(JSON.parse(s.toString()) as TQuestion[])
         } catch (error) {
-            console.log('Error parsing file')
-            console.log(error)
+            console.error(error)
         }
     }
     reader.readAsText(files[0])

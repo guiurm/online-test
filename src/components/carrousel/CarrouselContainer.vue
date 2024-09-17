@@ -6,6 +6,7 @@ import type CarrouselSubscriber from './CarrouselSubscriber'
 const items = ref([]) as Ref<{ id: string; subscriber: CarrouselSubscriber }[]>
 
 const currentIndex = ref(0)
+const height = ref({ height: '0px' })
 
 const distpachListeners = (visible: number, left: number, right: number) => {
     items.value.forEach((item, index) => {
@@ -46,11 +47,14 @@ const prev = () => {
     distpachListeners(visible, left, right)
 }
 
-provide(CARROUSEL_ACTIONS, ((data) => {
-    console.log(data.id)
-
-    items.value.push(data)
-}) as TCarrouselProvideCard)
+provide(CARROUSEL_ACTIONS, {
+    addCard: (data) => {
+        items.value.push(data)
+    },
+    setContainerHeight: (v) => {
+        height.value.height = `${v}px`
+    }
+} as TCarrouselProvideCard)
 
 onMounted(() => {
     if (items.value.length === 0 || items.value.length === 1) return
@@ -69,7 +73,7 @@ onMounted(() => {
     </div>
     <div class="flex justify-between items-center w-full mx-auto">
         <button @click="prev" class="bg-white p-2 rounded-full shadow-md">&lt;</button>
-        <div class="flex flex-row w-full relative">
+        <div class="flex flex-row w-full relative overflow-hidden" :style="height">
             <slot />
         </div>
         <button @click="next" class="bg-white p-2 rounded-full shadow-md">&gt;</button>
