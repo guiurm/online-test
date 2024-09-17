@@ -6,6 +6,7 @@ import ExamCard from '@/components/exam/ExamCard.vue'
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import { useExamStore } from '@/stores/examStore'
 import type { TQuestion } from '@/types'
+import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 
 const exam = useExamStore()
@@ -69,13 +70,17 @@ const correctTest = () => {
                     <p class="text-white-300 italic mb-2">¿Por qué es la respuesta correcta?: "{{ question.reason }}"</p>
 
                     <div
-                        class="px-2 flex ps-4 border border-gray-600 rounded cursor-pointer hover:bg-white-500/20 transition-colors"
+                        class="px-2 flex ps-4 border border-gray-600 rounded cursor-default"
                         v-for="option in question.options"
                         :key="option.text + question.id"
                     >
                         <!-- <span class="material-symbols-outlined mr-4 text-base"> radio_button_checked </span> -->
-                        <span class="material-symbols-outlined mr-4 text-base text-green-500" v-if="option.correct"> check_circle </span>
-                        <span class="material-symbols-outlined mr-4 text-base text-red-500" v-if="option.selected && !option.correct"> error </span>
+                        <span>
+                            <icon icon="mdi:checkbox-marked-circle-outline" class="h-full mr-4 text-base text-green-500" v-if="option.correct" />
+                        </span>
+                        <span>
+                            <icon icon="mdi:cross-circle-outline" class="h-full mr-4 text-base text-red-500" v-if="option.selected && !option.correct" />
+                        </span>
                         <span :class="{ 'text-white-300': !option.selected }">
                             {{ option.text }}
                         </span>

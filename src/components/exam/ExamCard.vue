@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useExamStore } from '@/stores/examStore'
 import type { TExamQuestion } from '@/types'
+import { Icon } from '@iconify/vue'
 import { ref, type Ref } from 'vue'
 
 const props = defineProps<{ question: TExamQuestion }>()
@@ -32,7 +33,8 @@ const manageOption = (optionIndex: number) => {
             }"
         >
             <span class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center" @click="manageOption(index)">
-                <span class="material-symbols-outlined mr-4 text-base" :class="{ ' text-transparent': answer !== index }"> radio_button_checked </span>
+                <!--<span class="material-symbols-outlined mr-4 text-base" :class="{ ' text-transparent': answer !== index }"> radio_button_checked </span>-->
+                <icon icon="mdi:radiobox-marked" class="mr-4 text-base" :class="{ 'text-transparent': answer !== index }" />
                 {{ option.text }}
             </span>
         </div>
