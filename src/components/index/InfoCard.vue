@@ -4,7 +4,7 @@ import { computed } from 'vue'
 defineSlots<{ title: {}; default: {} }>()
 const props = defineProps<{ reverse?: boolean; img: { src: string; alt: string } }>()
 
-const src = computed(() => `/online-test${props.img.src}`) //import.meta.env.DEV === true ? props.img.src : `/online-test${props.img.src}`))
+const src = computed(() => `${props.img.src}`) //import.meta.env.DEV === true ? props.img.src : `/online-test${props.img.src}`))
 </script>
 <template>
     <a
