@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import CarrouselCard from '@/components/carrousel/CarrouselCard.vue'
-import CarrouselComponent from '@/components/carrousel/CarrouselContainer.vue'
+import { CarouselCard, CarouselContainer } from '@guiurm/bit-craft'
+// import CarrouselCard from '@/components/carrousel/CarrouselCard.vue'
+// import CarrouselComponent from '@/components/carrousel/CarrouselContainer.vue'
 import DropZone from '@/components/DropZone.vue'
 import ExamCard from '@/components/exam/ExamCard.vue'
 import NavbarComponent from '@/components/NavbarComponent.vue'
@@ -47,11 +48,11 @@ const correctTest = () => {
             <template v-else-if="!showCorrection">
                 <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">Rellena el cuestionario</h2>
                 <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">Tras completar el questionario haz click en corregir</p>
-                <CarrouselComponent>
-                    <CarrouselCard v-for="c in exam.questions" :key="c.title">
+                <CarouselContainer>
+                    <CarouselCard v-for="c in exam.questions" :key="c.title">
                         <exam-card :question="c"></exam-card>
-                    </CarrouselCard>
-                </CarrouselComponent>
+                    </CarouselCard>
+                </CarouselContainer>
                 <div class="my-4 px-2 flex justify-end">
                     <div class="btn" @click="correctTest" :class="{ 'btn-disabled': !exam.allAnswered }">Corregir</div>
                 </div>
