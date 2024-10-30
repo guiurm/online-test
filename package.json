@@ -14,7 +14,7 @@
         "format": "prettier --write src/"
     },
     "dependencies": {
-        "@guiurm/bit-craft": "^1.0.0-alpha.1",
+        "@guiurm/bit-craft": "^1.0.0-alpha.3",
         "@heroicons/vue": "^2.1.5",
         "axios": "^1.7.7",
         "pinia": "^2.1.7",

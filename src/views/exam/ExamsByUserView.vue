@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import { getUserExams } from '@/composables/apiComposable'
-import { buildDatatableCell, buildDatatableRows, CDatatable, type TRowProps } from '@guiurm/bit-craft'
+import { buildDatatableCell, buildDatatableRows, CDatatable, CDatatableCellHeader, CDatatableHeader, type TRowProps } from '@guiurm/bit-craft'
 import { ref } from 'vue'
 
 const rows = ref<TRowProps[]>([])
@@ -42,7 +42,15 @@ getList(undefined)
                 </p>
                 
             -->
-            <c-datatable :rows="rows" :cols="3" />
+            <c-datatable :rows="rows" :cols="3">
+                <template #header>
+                    <c-datatable-header :cols="3">
+                        <c-datatable-cell-header>Id</c-datatable-cell-header>
+                        <c-datatable-cell-header>Nombre</c-datatable-cell-header>
+                        <c-datatable-cell-header>Número de preguntas</c-datatable-cell-header>
+                    </c-datatable-header>
+                </template>
+            </c-datatable>
         </div>
     </main>
 </template>
