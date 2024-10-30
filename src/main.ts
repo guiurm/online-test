@@ -1,5 +1,5 @@
 import '../node_modules/@guiurm/bit-craft/dist/output.css'
-import './assets/main.css'
+import './assets/main.scss'
 
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
