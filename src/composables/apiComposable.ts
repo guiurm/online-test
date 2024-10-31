@@ -1,15 +1,12 @@
+import { API_BASE_URL, TOKEN } from '@/globals'
 import { reactiveAsyncCallback } from '@guiurm/bit-craft'
 import { Axios, type Method } from 'axios'
 import type { ICreateExam, IExam, TSignInRequestBody, TSignInResponseBody, TSignupRequestBody, TSignupResponseBody } from './apiTypes'
 
-const baseUrl = 'http://localhost:3000/api'
-const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1aXVybUBnbWFpbC5jb20iLCJuYW1lIjoiTWFudSIsImlhdCI6MTczMDA2NDkyOCwiZXhwIjoxNzMwNjY5NzI4fQ.ig49ZaHvX37Vzn-MzEtz33MC__G1MdrlGmTDxsiqCTU'
-
 const axios = new Axios({
-    baseURL: baseUrl,
+    baseURL: API_BASE_URL,
     headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${TOKEN}`,
         'Content-Type': 'application/json'
     }
 })
@@ -43,6 +40,14 @@ export const signin = (conf: TGenConf<TSignInRequestBody, TSignInResponseBody> =
     })
 }
 
+export const signinWithToken = (conf: TGenConf<{ token: string }, TSignInResponseBody> = {}) => {
+    return useApiCall<{ token: string }, TSignInResponseBody>({
+        method: 'POST',
+        url: '/auth/signin/t',
+        ...conf
+    })
+}
+
 export const userProfile = () => {
     return reactiveAsyncCallback(
         async (id: number) => {
@@ -57,7 +62,7 @@ export const userProfile = () => {
 export const signup = (conf: TGenConf<TSignupRequestBody, TSignupResponseBody> = {}) => {
     return useApiCall<TSignupRequestBody, TSignupResponseBody>({
         method: 'POST',
-        url: '/user/signup',
+        url: '/auth/signup',
         ...conf
     })
 }

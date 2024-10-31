@@ -1,0 +1,19 @@
+.tab-btn {
+    @apply cursor-pointer;
+
+    &--active,
+    & {
+        @apply relative flex flex-col;
+
+        &::after {
+            @apply w-full h-1  mt-2;
+            content: '';
+        }
+    }
+
+    &--active {
+        &::after {
+            @apply bg-primary-500;
+        }
+    }
+}

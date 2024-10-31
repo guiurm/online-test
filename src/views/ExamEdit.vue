@@ -38,7 +38,7 @@ const correctTest = () => {
         <navbar-component />
         <section class="max-w-5xl mx-auto py-6">
             <template v-if="exam.questions.length === 0">
-                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white-50">
                     Selecciona tu archivo JSON
                 </h2>
                 <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">Suelta un archivo o haz click</p>
@@ -46,7 +46,9 @@ const correctTest = () => {
             </template>
 
             <template v-else-if="!showCorrection">
-                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">Rellena el cuestionario</h2>
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white-50">
+                    Rellena el cuestionario
+                </h2>
                 <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">Tras completar el questionario haz click en corregir</p>
                 <CarouselContainer>
                     <CarouselCard v-for="c in exam.questions" :key="c.title">
@@ -58,7 +60,9 @@ const correctTest = () => {
                 </div>
             </template>
             <template v-else>
-                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white">Resultados de evaluacion</h2>
+                <h2 class="mb-4 text-2xl font-semibold tracking-tight text-center leading-none md:text-3xl lg:text-4xl text-white-50">
+                    Resultados de evaluacion
+                </h2>
                 <p class="mt-6 mb-20 text-lg text-center font-medium text-white-300 md:text-xl">
                     El resultado total del test realizado es: {{ exam.totalAnswered - exam.totalFailed }} / {{ exam.totalAnswered }}
                 </p>

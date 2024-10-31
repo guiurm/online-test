@@ -2,60 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-    scroll-behavior: smooth;
-}
+@import 'scaffolding';
+@import 'btn';
+@import 'navbar';
+@import 'panels';
+@import 'override';
 
-h1,
-.h1 {
-    @apply text-5xl font-extrabold;
-}
-
-h2,
-.h2 {
-    @apply text-4xl font-bold;
-}
-
-h3,
-.h3 {
-    @apply text-3xl font-bold;
-}
-
-h4,
-.h4 {
-    @apply text-2xl font-bold;
-}
-
-h5,
-.h5 {
-    @apply text-xl font-bold;
-}
-
-h6,
-.h6 {
-    @apply text-lg font-bold;
-}
-
-p {
-    @apply mb-3;
-}
-
-.tab-btn {
-    @apply cursor-pointer;
-
-    &--active,
-    & {
-        @apply relative flex flex-col;
-
-        &::after {
-            @apply w-full h-1  mt-2;
-            content: '';
-        }
-    }
-
-    &--active {
-        &::after {
-            @apply bg-primary-500;
-        }
+.glow {
+    transition: all ease 0.25s;
+    &:hover {
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.1),
+            0 0 5px rgba(255, 255, 255, 0.1),
+            0 0 5px rgba(255, 255, 255, 0.1);
     }
 }

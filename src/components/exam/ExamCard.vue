@@ -17,7 +17,7 @@ const manageOption = (optionIndex: number) => {
 
 <template>
     <a class="block p-6 bg-white border border-primary-600 rounded-lg shadow">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight dark:text-white">{{ question.title }}</h5>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight dark:text-white-50">{{ question.title }}</h5>
         <p class="font-normal mb-4 text-gray-700 dark:text-gray-400">
             {{ question.subtitle }}
         </p>

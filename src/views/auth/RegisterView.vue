@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import { signup } from '@/composables/apiComposable'
+import { COOKIE_TOKEN_KEY } from '@/globals'
+import { useUser } from '@/stores/userStore'
 import { createToast, ToastContainer } from '@guiurm/bit-craft'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const userStore = useUser()
 const { call, loading } = signup({
     onError(e) {
         createToast({ message: e.message }, 'registerToast')
     },
-    onSuccess() {
+    onSuccess(data) {
         createToast({ message: 'Registrado con éxito' }, 'registerToast')
+        userStore.user = data.user
+        userStore.token = data.token
+        localStorage.setItem(COOKIE_TOKEN_KEY, data.token)
+        router.push({ name: 'dashboard.index' })
     }
 })
 
@@ -36,7 +45,7 @@ const password = ref('')
                                 id="username"
                                 v-model="username"
                                 required
-                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="text-dark-900 mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -47,7 +56,7 @@ const password = ref('')
                                 id="email"
                                 v-model="email"
                                 required
-                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="text-dark-900 mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -58,7 +67,7 @@ const password = ref('')
                                 id="password"
                                 v-model="password"
                                 required
-                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="text-dark-900 mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -70,6 +79,7 @@ const password = ref('')
                             Registrarse
                         </button>
                     </form>
+                    <router-link class="mt-4 text-primary-500 block text-center" :to="{ name: 'auth.signin' }">Login</router-link>
                 </div>
             </div>
         </section>

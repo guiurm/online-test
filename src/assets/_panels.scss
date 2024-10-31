@@ -1,0 +1,33 @@
+.panel {
+    @apply bg-primary-900;
+    gap: 1px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: min-content 1fr; // 100px;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-auto-flow: row;
+
+    height: 100vh;
+
+    &-nav {
+        @apply bg-background-dark;
+        grid-area: 1 / 1 / 2 / 13;
+    }
+
+    &-aside {
+        @apply bg-background-dark;
+        grid-area: 2 / 1 / 3 / 3;
+    }
+    &-body {
+        @apply bg-background-dark;
+        grid-area: 2 / 3 / 3 / 13;
+
+        overflow: auto;
+    }
+    &-footer {
+        @apply bg-background-dark;
+        grid-area: 3 / 1 / 4 / 13;
+    }
+}

@@ -15,7 +15,7 @@ const src = computed(() => `${props.img.src}`) //import.meta.env.DEV === true ? 
             <h5 class="mb-2 text-2xl font-bold tracking-tight">
                 <slot name="title" />
             </h5>
-            <p class="mb-3 font-normal text-white-300">
+            <p class="mb-3 font-normal text-white-50">
                 <slot />
             </p>
         </div>

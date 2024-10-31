@@ -48,8 +48,17 @@ export interface ICreateExam {
 }
 
 export type TSignupRequestBody = { name: string; email: string; password: string }
-export type TSignupResponseBody = { name: string; email: string }
+export type TSignupResponseBody = { token: string; user: IApiUser }
 
 export type TSignInRequestBody = { email: string; password: string }
-export type TSignInResponseBody = { token: string }
+export type TSignInResponseBody = { token: string; user: IApiUser }
 export type TUserProfileResponseBody = { name: string; email: string }
+
+//user
+export interface IApiUser {
+    email: string
+    keycode: null
+    name: string
+    password: string
+    register: Date
+}

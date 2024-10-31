@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { authGuard } from './authMiddleware'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,8 +20,8 @@ const router = createRouter({
             component: () => import('../views/DocView.vue')
         },
         {
-            path: '/auth/register',
-            name: 'auth.register',
+            path: '/auth/signup',
+            name: 'auth.signup',
             component: () => import('../views/auth/RegisterView.vue')
         },
         {
@@ -28,23 +29,70 @@ const router = createRouter({
             name: 'auth.signin',
             component: () => import('../views/auth/LoginView.vue')
         },
+        //dashboard
         {
+            path: '/dashboard',
+            component: () => import('@/views/dashboard/DashboardWrapper.vue'),
+            name: 'dashboard.wrapper',
+            meta: { requireLogin: true },
+            children: [
+                {
+                    path: '',
+                    name: 'dashboard.index',
+                    component: () => import('@/views/dashboard/DashboardIndex.vue')
+                },
+                {
+                    path: 'exam/new',
+                    name: 'dashboard.exam.new',
+                    component: () => import('@/views/dashboard/exam/ExamCreate.vue')
+                },
+                {
+                    path: 'exam/:examId',
+                    name: 'dashboard.exam.edit',
+                    props: true,
+                    component: () => import('@/views/dashboard/exam/ExamEdit.vue')
+                },
+                {
+                    path: 'exam/user/list',
+                    name: 'dashboard.exam.list',
+                    component: () => import('@/views/dashboard/exam/ExamsByUserView.vue')
+                }
+            ]
+        }
+        /*{
             path: '/exam/new',
+            meta: { requireLogin: true },
             name: 'exam.new',
             component: () => import('../views/exam/ExamCreate.vue')
         },
         {
             path: '/exam/:examId',
+            meta: { requireLogin: true },
             name: 'exam.edit',
             props: true,
             component: () => import('../views/exam/ExamEdit.vue')
         },
         {
             path: '/exam',
+            meta: { requireLogin: true },
             name: 'exam.list',
             component: () => import('../views/exam/ExamsByUserView.vue')
-        }
+        },
+        {
+            path: '/test',
+            meta: { requireLogin: true },
+            name: 'test',
+            component: () => import('../views/TestV.vue')
+        }*/
     ]
+})
+
+router.beforeEach(async (to, from, next) => {
+    if (await authGuard(to, from, next)) {
+        next()
+    } else {
+        return next('/auth/signin')
+    }
 })
 
 export default router
