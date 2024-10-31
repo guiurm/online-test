@@ -11,7 +11,7 @@ const router = useRouter()
 const userStore = useUser()
 const { call, loading } = signup({
     onError(e) {
-        createToast({ message: e.message }, 'registerToast')
+        createToast({ message: e.message, type: 'error' }, 'registerToast')
     },
     onSuccess(data) {
         createToast({ message: 'Registrado con éxito' }, 'registerToast')
