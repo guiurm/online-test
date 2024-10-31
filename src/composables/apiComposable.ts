@@ -70,10 +70,35 @@ export const createExam = (conf: TGenConf<ICreateExam, ICreateExam> = {}) => {
     })
 }
 
+export const editExam = (examId: number, conf: TGenConf<ICreateExam, ICreateExam> = {}) => {
+    return useApiCall<ICreateExam, ICreateExam>({
+        method: 'PUT',
+        url: `/exam/edit/${examId}`,
+        ...conf
+    })
+}
+
 export const getUserExams = (conf: TGenConf<undefined, IExam[]> = {}) => {
     return useApiCall<undefined, IExam[]>({
         method: 'GET',
         url: '/exam/list',
         ...conf
     })
+}
+
+export const getExam = (conf: TGenConf<undefined, IExam> = {}) => {
+    return reactiveAsyncCallback(
+        async (id: number) => {
+            const response = await axios.get(`/exam/list/${id}`)
+            const dataParsed = JSON.parse(response.data)
+
+            if (response.status >= 400) throw new Error(`Error: ${dataParsed.message.toString()}`)
+
+            return dataParsed as IExam
+        },
+        {
+            autoCall: false,
+            ...conf
+        }
+    )
 }
