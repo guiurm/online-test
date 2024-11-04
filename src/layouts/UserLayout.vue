@@ -36,8 +36,8 @@ const userStore = useUser()
             </header>
         </template>
         <template #aside>
-            <div class="h-full flex flex-col justify-between">
-                <nav class="p-4">
+            <div class="h-full flex flex-col gap-[1px] justify-between bg-primary-500">
+                <nav class="p-4 h-full bg-background-dark">
                     <ul class="flex flex-col">
                         <collapse-component>
                             <template #header>
@@ -78,7 +78,7 @@ const userStore = useUser()
                         <collapse-component> body </collapse-component>
                     </ul>
                 </nav>
-                <nav class="p-4 border-t border-primary-600">
+                <nav class="p-4 bg-background-dark">
                     <ul class="flex flex-col">
                         <li class="glow mb-2 cursor-pointer hover:text-primary-400">
                             <a class="flex items-center">
