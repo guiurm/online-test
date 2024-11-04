@@ -4,6 +4,7 @@ import { TrashIcon } from '@heroicons/vue/24/solid'
 import { reactive, watch } from 'vue'
 
 const props = defineProps<{ modelValue: ICreateExamQuestion }>()
+const emits = defineEmits<{ 'update:modelValue': [question: ICreateExamQuestion] }>()
 
 const question = reactive(props.modelValue)
 
@@ -24,6 +25,7 @@ const addOption = () => {
 watch(question, (n) => {
     console.log('change')
     console.log(n)
+    emits('update:modelValue', n)
 })
 </script>
 <template>

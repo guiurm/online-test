@@ -33,7 +33,7 @@ export interface IExamQuestionOption {
     correct: boolean
     examQuestionId: number
     id: number
-    reason: null
+    reason: null | string
     text: string
 }
 
@@ -66,4 +66,32 @@ export interface IApiUser {
     name: string
     password: string
     register: Date
+}
+
+// question
+export interface IAPIQuestion {
+    body: string
+    creation: Date
+    difficultyId: number
+    id: number
+    keycode: null | string
+    title: string
+    topics: IAPITopic[]
+    options: IAPIQuestionOption[]
+    userId: number
+}
+
+export interface IAPITopic {
+    color: string
+    description: string
+    id: number
+    name: string
+}
+
+export interface IAPIQuestionOption {
+    correct: boolean
+    examQuestionId: number
+    id: number
+    reason: null
+    text: string
 }

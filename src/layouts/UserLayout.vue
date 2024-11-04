@@ -61,7 +61,10 @@ const userStore = useUser()
                             <template #default>
                                 <ul class="flex flex-col ml-2">
                                     <li class="glow mb-2 cursor-pointer text-white-400 hover:text-primary-400">
-                                        <router-link :to="{ name: 'dashboard.question.list', params: {} }">realizados </router-link>
+                                        <router-link :to="{ name: 'dashboard.question.add', params: {} }">crear </router-link>
+                                    </li>
+                                    <li class="glow mb-2 cursor-pointer text-white-400 hover:text-primary-400">
+                                        <router-link :to="{ name: 'dashboard.question.list', params: {} }">lista de preguntas </router-link>
                                     </li>
                                 </ul>
                             </template>

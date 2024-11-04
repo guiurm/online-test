@@ -65,6 +65,7 @@ const router = createRouter({
                 },
                 {
                     path: 'question/user/:questionKeycode',
+                    props: true,
                     name: 'dashboard.question.edit',
                     component: () => import('@/views/dashboard/question/QuestionEdit.vue')
                 },

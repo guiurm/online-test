@@ -1,7 +1,16 @@
 import { API_BASE_URL, TOKEN } from '@/globals'
 import { reactiveAsyncCallback } from '@guiurm/bit-craft'
 import { Axios, type Method } from 'axios'
-import type { ICreateExam, IExam, TSignInRequestBody, TSignInResponseBody, TSignupRequestBody, TSignupResponseBody } from './apiTypes'
+import type {
+    IAPIQuestion,
+    ICreateExam,
+    ICreateExamQuestion,
+    IExam,
+    TSignInRequestBody,
+    TSignInResponseBody,
+    TSignupRequestBody,
+    TSignupResponseBody
+} from './apiTypes'
 
 const axios = new Axios({
     baseURL: API_BASE_URL,
@@ -32,6 +41,15 @@ const useApiCall = <TRequest, TResponse>(conf: { method: Method; url: string; on
     )
 }
 
+// AUTH
+export const signup = (conf: TGenConf<TSignupRequestBody, TSignupResponseBody> = {}) => {
+    return useApiCall<TSignupRequestBody, TSignupResponseBody>({
+        method: 'POST',
+        url: '/auth/signup',
+        ...conf
+    })
+}
+
 export const signin = (conf: TGenConf<TSignInRequestBody, TSignInResponseBody> = {}) => {
     return useApiCall<TSignInRequestBody, TSignInResponseBody>({
         method: 'POST',
@@ -48,6 +66,7 @@ export const signinWithToken = (conf: TGenConf<{ token: string }, TSignInRespons
     })
 }
 
+// USER
 export const userProfile = () => {
     return reactiveAsyncCallback(
         async (id: number) => {
@@ -59,14 +78,7 @@ export const userProfile = () => {
     )
 }
 
-export const signup = (conf: TGenConf<TSignupRequestBody, TSignupResponseBody> = {}) => {
-    return useApiCall<TSignupRequestBody, TSignupResponseBody>({
-        method: 'POST',
-        url: '/auth/signup',
-        ...conf
-    })
-}
-
+// EXAM
 export const createExam = (conf: TGenConf<ICreateExam, ICreateExam> = {}) => {
     return useApiCall<ICreateExam, ICreateExam>({
         method: 'POST',
@@ -106,4 +118,51 @@ export const getExam = (conf: TGenConf<undefined, IExam> = {}) => {
             ...conf
         }
     )
+}
+
+// QUESTION
+export const getUserQuestions = (conf: TGenConf<undefined, IAPIQuestion[]> = {}) => {
+    return useApiCall({ method: 'GET', url: '/question/by-user', ...conf })
+}
+
+export const getQuestion = (conf: TGenConf<undefined, IAPIQuestion> = {}) => {
+    return reactiveAsyncCallback(
+        async (keycode: string) => {
+            const response = await axios.get(`/question/${keycode}`)
+            const dataParsed = JSON.parse(response.data)
+
+            if (response.status >= 400) throw new Error(`Error: ${dataParsed.message.toString()}`)
+
+            return dataParsed as IAPIQuestion
+        },
+        {
+            autoCall: false,
+            ...conf
+        }
+    )
+}
+
+export const updateQuestion = (conf: TGenConf<IAPIQuestion, IAPIQuestion> = {}) => {
+    return reactiveAsyncCallback(
+        async (keycode: string, data: IAPIQuestion) => {
+            const response = await axios.put(`/question/${keycode}`, JSON.stringify(data))
+            const dataParsed = JSON.parse(response.data)
+
+            if (response.status >= 400) throw new Error(`Error: ${dataParsed.message.toString()}`)
+
+            return dataParsed as IAPIQuestion
+        },
+        {
+            autoCall: false,
+            ...conf
+        }
+    )
+}
+
+export const createQuestion = (conf: TGenConf<ICreateExamQuestion, ICreateExamQuestion> = {}) => {
+    return useApiCall<ICreateExamQuestion, ICreateExamQuestion>({
+        method: 'POST',
+        url: '/question/add',
+        ...conf
+    })
 }
