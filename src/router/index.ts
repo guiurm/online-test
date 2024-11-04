@@ -53,6 +53,12 @@ const router = createRouter({
                     component: () => import('@/views/dashboard/exam/ExamEdit.vue')
                 },
                 {
+                    path: 'exam/attempt/:examId',
+                    name: 'dashboard.exam.attempt',
+                    props: true,
+                    component: () => import('@/views/dashboard/exam/ExamAttempt.vue')
+                },
+                {
                     path: 'exam/user/list',
                     name: 'dashboard.exam.list',
                     component: () => import('@/views/dashboard/exam/ExamsByUserView.vue')

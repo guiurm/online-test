@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { getUserExams } from '@/composables/apiComposable'
 import { buildDatatableCell, buildDatatableRows, CDatatable, CDatatableCellHeader, CDatatableHeader, type TRowProps } from '@guiurm/bit-craft'
-import { h, ref, type Component } from 'vue'
+import { h, ref } from 'vue'
 
-import { PencilSquareIcon } from '@heroicons/vue/24/solid'
+import { AcademicCapIcon, PencilSquareIcon } from '@heroicons/vue/24/solid'
 import { RouterLink } from 'vue-router'
 
 const rows = ref<TRowProps[]>([])
@@ -28,13 +28,22 @@ const {
                         buildDatatableCell({ value: cE.questions.length }),
                         buildDatatableCell({
                             value: {
-                                node: h(
-                                    RouterLink,
-                                    { to: { name: 'dashboard.exam.edit', params: { examId: cE.id } }, class: 'btn btn-sm w-fit' },
-                                    {
-                                        default: () => [h(PencilSquareIcon, { class: 'size-5' })]
-                                    }
-                                )
+                                node: h('div', { class: 'w-full flex' }, [
+                                    h(
+                                        RouterLink,
+                                        { to: { name: 'dashboard.exam.edit', params: { examId: cE.id } }, class: 'btn btn-sm w-fit' },
+                                        {
+                                            default: () => [h(PencilSquareIcon, { class: 'size-5' })]
+                                        }
+                                    ),
+                                    h(
+                                        RouterLink,
+                                        { to: { name: 'dashboard.exam.attempt', params: { examId: cE.id } }, class: 'btn btn-sm w-fit' },
+                                        {
+                                            default: () => [h(AcademicCapIcon, { class: 'size-5' })]
+                                        }
+                                    )
+                                ])
                             }
                         })
                     ]
@@ -44,10 +53,6 @@ const {
     }
 })
 getList(undefined)
-
-const slideHeadGenerator = (text: string, icon: Component) => {
-    return h('div', { class: 'btn btn-sm w-fit' }, [h('div', { class: 'mr-2' }, [text]), h(icon, { class: 'size-5' })])
-}
 </script>
 <template>
     <h1 class="mb-4 text-2xl font-bold">Lista de examenes</h1>
