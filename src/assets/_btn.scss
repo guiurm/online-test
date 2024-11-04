@@ -28,7 +28,7 @@
 
 // Estilos SCSS
 .btn {
-    @apply text-white-50 font-semibold rounded;
+    @apply text-white-50 font-semibold rounded cursor-pointer;
 
     // Estilos por defecto
     @include btn-styles('primary');

@@ -36,8 +36,8 @@ const userStore = useUser()
             </header>
         </template>
         <template #aside>
-            <div class="p-4 h-full flex flex-col justify-between">
-                <nav class="">
+            <div class="h-full flex flex-col justify-between">
+                <nav class="p-4">
                     <ul class="flex flex-col">
                         <collapse-component>
                             <template #header>
@@ -58,7 +58,13 @@ const userStore = useUser()
                             <template #header>
                                 <li class="glow mb-2 cursor-pointer hover:text-primary-400">Preguntas</li>
                             </template>
-                            <template #default> </template>
+                            <template #default>
+                                <ul class="flex flex-col ml-2">
+                                    <li class="glow mb-2 cursor-pointer text-white-400 hover:text-primary-400">
+                                        <router-link :to="{ name: 'dashboard.question.list', params: {} }">realizados </router-link>
+                                    </li>
+                                </ul>
+                            </template>
                         </collapse-component>
                         <collapse-component>
                             <template #header>
@@ -69,7 +75,7 @@ const userStore = useUser()
                         <collapse-component> body </collapse-component>
                     </ul>
                 </nav>
-                <nav class="">
+                <nav class="p-4 border-t border-primary-600">
                     <ul class="flex flex-col">
                         <li class="glow mb-2 cursor-pointer hover:text-primary-400">
                             <a class="flex items-center">

@@ -23,6 +23,11 @@ export interface IExamQuestion {
     title: string
     userId: number
 }
+export interface ICreateExamQuestion {
+    body: string
+    options: IExamQuestionOption[]
+    title: string
+}
 
 export interface IExamQuestionOption {
     correct: boolean

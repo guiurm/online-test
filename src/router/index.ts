@@ -56,6 +56,22 @@ const router = createRouter({
                     path: 'exam/user/list',
                     name: 'dashboard.exam.list',
                     component: () => import('@/views/dashboard/exam/ExamsByUserView.vue')
+                },
+                // question
+                {
+                    path: 'question/user/list',
+                    name: 'dashboard.question.list',
+                    component: () => import('@/views/dashboard/question/QuestionList.vue')
+                },
+                {
+                    path: 'question/user/:questionKeycode',
+                    name: 'dashboard.question.edit',
+                    component: () => import('@/views/dashboard/question/QuestionEdit.vue')
+                },
+                {
+                    path: 'question/user/add',
+                    name: 'dashboard.question.add',
+                    component: () => import('@/views/dashboard/question/QuestionCreate.vue')
                 }
             ]
         }
